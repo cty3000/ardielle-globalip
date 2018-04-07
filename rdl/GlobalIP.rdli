@@ -1,0 +1,9 @@
+include "GlobalIP.tdl";
+
+resource Response GET "/ip" {
+    expected OK;
+    exceptions {
+        ResourceError BAD_REQUEST;
+        ResourceError NOT_FOUND;
+    }
+}

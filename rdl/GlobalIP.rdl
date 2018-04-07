@@ -1,0 +1,8 @@
+//
+// A global IP API in *RDL*
+//
+name GlobalIP;
+version 1;
+namespace tk.cty4500;
+
+include "GlobalIP.rdli";
