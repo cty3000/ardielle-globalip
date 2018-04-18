@@ -1,4 +1,4 @@
-# ardielle-globalip
+# rdl-globalip
 
 ## Making a Go server
 
@@ -9,4 +9,4 @@
 
 ## Making a Go server with docker
 
-    $ docker run -itd -h localhost -p 0.0.0.0:4080:4080 cty3000/globalipd
+    $ docker run -itd -h localhost -p 0.0.0.0:4080:4080 --name globalipd cty3000/globalipd
