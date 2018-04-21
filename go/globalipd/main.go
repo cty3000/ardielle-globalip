@@ -9,6 +9,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 )
 
@@ -16,10 +17,33 @@ func now() rdl.Timestamp {
 	return rdl.TimestampNow()
 }
 
-func main() {
-	endpoint := "0.0.0.0:4080"
+func defaultEndPoint() string {
+	h := os.Getenv("HOST")
+	if h != "" {
+		p := os.Getenv("PORT")
+		if p != "" {
+			return h + ":" + p
+		}
+		return h + ":4080"
+	}
 
-	url := "http://" + endpoint + "/api/v1"
+	p := os.Getenv("PORT")
+	if p != "" {
+		return "0.0.0.0:" + p
+	}
+
+	endpoint := "0.0.0.0:4080"
+	return endpoint
+}
+
+func defaultURL() string {
+	url := "http://" + defaultEndPoint() + "/api/v1"
+	return url
+}
+
+func main() {
+	endpoint := defaultEndPoint()
+	url := defaultURL()
 
 	impl := new(GlobalIPImpl)
 	impl.baseUrl = url
