@@ -11,6 +11,7 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"time"
 )
 
 func now() rdl.Timestamp {
@@ -42,6 +43,7 @@ func defaultURL() string {
 }
 
 func main() {
+	go checkGlobalIP()
 	endpoint := defaultEndPoint()
 	url := defaultURL()
 
@@ -62,6 +64,22 @@ func main() {
 		log.Fatal(http.Serve(listener, handler))
 	} else {
 		log.Fatal(http.ListenAndServe(endpoint, handler))
+	}
+}
+
+func checkGlobalIP() {
+	ip := ""
+	for true {
+		client := globalip.NewClient("http://eu.httpbin.org", nil)
+		out, err := client.GetGlobalIPResponse()
+		if err != nil {
+			log.Fatal("Cannot receive Global IP: " + err.Error())
+		}
+		if ip != string(out.Origin) {
+			ip = string(out.Origin)
+			log.Printf("Global IP: " + ip)
+		}
+		time.Sleep(300000 * time.Millisecond)
 	}
 }
 
