@@ -37,7 +37,7 @@ func Init(impl GlobalIPHandler, baseURL string, authz rdl.Authorizer, authns ...
 	adaptor := GlobalIPAdaptor{impl, authz, authns, b}
 
 	router.GET(b+"/ip", func(w http.ResponseWriter, m *http.Request, ps map[string]string) {
-		adaptor.getResponseHandler(w, m, ps)
+		adaptor.getGlobalIPResponseHandler(w, m, ps)
 	})
 	router.NotFoundHandler = func(w http.ResponseWriter, m *http.Request) {
 		rdl.JSONResponse(w, 404, rdl.ResourceError{Code: http.StatusNotFound, Message: "Not Found"})
@@ -50,7 +50,7 @@ func Init(impl GlobalIPHandler, baseURL string, authz rdl.Authorizer, authns ...
 // GlobalIPHandler is the interface that the service implementation must conform to
 //
 type GlobalIPHandler interface {
-	GetResponse(context *rdl.ResourceContext) (*Response, error)
+	GetGlobalIPResponse(context *rdl.ResourceContext) (*GlobalIPResponse, error)
 	Authenticate(context *rdl.ResourceContext) bool
 }
 
@@ -127,9 +127,9 @@ func floatFromString(s string) float64 {
 	return n
 }
 
-func (adaptor GlobalIPAdaptor) getResponseHandler(writer http.ResponseWriter, request *http.Request, params map[string]string) {
+func (adaptor GlobalIPAdaptor) getGlobalIPResponseHandler(writer http.ResponseWriter, request *http.Request, params map[string]string) {
 	context := &rdl.ResourceContext{Writer: writer, Request: request, Params: params, Principal: nil}
-	data, err := adaptor.impl.GetResponse(context)
+	data, err := adaptor.impl.GetGlobalIPResponse(context)
 	if err != nil {
 		switch e := err.(type) {
 		case *rdl.ResourceError:

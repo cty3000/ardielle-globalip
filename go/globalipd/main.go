@@ -73,9 +73,9 @@ type GlobalIPImpl struct {
 }
 
 // GetContact implementation
-func (impl *GlobalIPImpl) GetResponse(context *rdl.ResourceContext) (*globalip.Response, error) {
+func (impl *GlobalIPImpl) GetGlobalIPResponse(context *rdl.ResourceContext) (*globalip.GlobalIPResponse, error) {
 	client := globalip.NewClient("http://httpbin.org", nil)
-	response, err := client.GetResponse()
+	response, err := client.GetGlobalIPResponse()
 	if err != nil {
 		errMsg := fmt.Sprintf("Unable to retrieve response details, Error: %v", err)
 		return response, &rdl.ResourceError{Code: 200, Message: errMsg}

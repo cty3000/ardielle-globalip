@@ -26,14 +26,14 @@ func init() {
 	tIPAddress.Pattern("[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5]\\.[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5]\\.[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5]\\.[0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5]")
 	sb.AddType(tIPAddress.Build())
 
-	tResponse := rdl.NewStructTypeBuilder("Struct", "Response")
-	tResponse.Field("origin", "IPAddress", false, nil, "")
-	sb.AddType(tResponse.Build())
+	tGlobalIPResponse := rdl.NewStructTypeBuilder("Struct", "GlobalIPResponse")
+	tGlobalIPResponse.Field("origin", "IPAddress", false, nil, "")
+	sb.AddType(tGlobalIPResponse.Build())
 
-	mGetResponse := rdl.NewResourceBuilder("Response", "GET", "/ip")
-	mGetResponse.Exception("BAD_REQUEST", "ResourceError", "")
-	mGetResponse.Exception("NOT_FOUND", "ResourceError", "")
-	sb.AddResource(mGetResponse.Build())
+	mGetGlobalIPResponse := rdl.NewResourceBuilder("GlobalIPResponse", "GET", "/ip")
+	mGetGlobalIPResponse.Exception("BAD_REQUEST", "ResourceError", "")
+	mGetGlobalIPResponse.Exception("NOT_FOUND", "ResourceError", "")
+	sb.AddResource(mGetGlobalIPResponse.Build())
 
 	var err error
 	schema, err = sb.BuildParanoid()

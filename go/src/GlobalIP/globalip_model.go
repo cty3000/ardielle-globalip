@@ -25,35 +25,35 @@ type Octet string
 type IPAddress string
 
 //
-// Response -
+// GlobalIPResponse -
 //
-type Response struct {
+type GlobalIPResponse struct {
 	Origin IPAddress `json:"origin"`
 }
 
 //
-// NewResponse - creates an initialized Response instance, returns a pointer to it
+// NewGlobalIPResponse - creates an initialized GlobalIPResponse instance, returns a pointer to it
 //
-func NewResponse(init ...*Response) *Response {
-	var o *Response
+func NewGlobalIPResponse(init ...*GlobalIPResponse) *GlobalIPResponse {
+	var o *GlobalIPResponse
 	if len(init) == 1 {
 		o = init[0]
 	} else {
-		o = new(Response)
+		o = new(GlobalIPResponse)
 	}
 	return o
 }
 
-type rawResponse Response
+type rawGlobalIPResponse GlobalIPResponse
 
 //
-// UnmarshalJSON is defined for proper JSON decoding of a Response
+// UnmarshalJSON is defined for proper JSON decoding of a GlobalIPResponse
 //
-func (self *Response) UnmarshalJSON(b []byte) error {
-	var m rawResponse
+func (self *GlobalIPResponse) UnmarshalJSON(b []byte) error {
+	var m rawGlobalIPResponse
 	err := json.Unmarshal(b, &m)
 	if err == nil {
-		o := Response(m)
+		o := GlobalIPResponse(m)
 		*self = o
 		err = self.Validate()
 	}
@@ -63,13 +63,13 @@ func (self *Response) UnmarshalJSON(b []byte) error {
 //
 // Validate - checks for missing required fields, etc
 //
-func (self *Response) Validate() error {
+func (self *GlobalIPResponse) Validate() error {
 	if self.Origin == "" {
-		return fmt.Errorf("Response.origin is missing but is a required field")
+		return fmt.Errorf("GlobalIPResponse.origin is missing but is a required field")
 	} else {
 		val := rdl.Validate(GlobalIPSchema(), "IPAddress", self.Origin)
 		if !val.Valid {
-			return fmt.Errorf("Response.origin does not contain a valid IPAddress (%v)", val.Error)
+			return fmt.Errorf("GlobalIPResponse.origin does not contain a valid IPAddress (%v)", val.Error)
 		}
 	}
 	return nil
