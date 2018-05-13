@@ -30,10 +30,11 @@ func init() {
 	tGlobalIPResponse.Field("origin", "IPAddress", false, nil, "")
 	sb.AddType(tGlobalIPResponse.Build())
 
-	mGetGlobalIPResponse := rdl.NewResourceBuilder("GlobalIPResponse", "GET", "/ip")
-	mGetGlobalIPResponse.Exception("BAD_REQUEST", "ResourceError", "")
-	mGetGlobalIPResponse.Exception("NOT_FOUND", "ResourceError", "")
-	sb.AddResource(mGetGlobalIPResponse.Build())
+	mGetGlobalIP := rdl.NewResourceBuilder("GlobalIPResponse", "GET", "/ip")
+	mGetGlobalIP.Name("GetGlobalIP")
+	mGetGlobalIP.Exception("BAD_REQUEST", "ResourceError", "")
+	mGetGlobalIP.Exception("NOT_FOUND", "ResourceError", "")
+	sb.AddResource(mGetGlobalIP.Build())
 
 	var err error
 	schema, err = sb.BuildParanoid()

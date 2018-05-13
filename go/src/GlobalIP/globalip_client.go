@@ -257,7 +257,7 @@ func encodeParams(objs ...string) string {
 	return "?" + s[1:]
 }
 
-func (client GlobalIPClient) GetGlobalIPResponse() (*GlobalIPResponse, error) {
+func (client GlobalIPClient) GetGlobalIP() (*GlobalIPResponse, error) {
 	var data *GlobalIPResponse
 	url := client.URL + "/ip"
 	resp, err := client.httpGet(url, nil)

@@ -71,7 +71,7 @@ func checkGlobalIP() {
 	ip := ""
 	for true {
 		client := globalip.NewClient("http://eu.httpbin.org", nil)
-		out, err := client.GetGlobalIPResponse()
+		out, err := client.GetGlobalIP()
 		if err != nil {
 			log.Fatal("Cannot receive Global IP: " + err.Error())
 		}
@@ -91,9 +91,9 @@ type GlobalIPImpl struct {
 }
 
 // GetContact implementation
-func (impl *GlobalIPImpl) GetGlobalIPResponse(context *rdl.ResourceContext) (*globalip.GlobalIPResponse, error) {
+func (impl *GlobalIPImpl) GetGlobalIP(context *rdl.ResourceContext) (*globalip.GlobalIPResponse, error) {
 	client := globalip.NewClient("http://httpbin.org", nil)
-	response, err := client.GetGlobalIPResponse()
+	response, err := client.GetGlobalIP()
 	if err != nil {
 		errMsg := fmt.Sprintf("Unable to retrieve response details, Error: %v", err)
 		return response, &rdl.ResourceError{Code: 200, Message: errMsg}

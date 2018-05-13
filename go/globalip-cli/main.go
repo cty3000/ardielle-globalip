@@ -139,7 +139,7 @@ func main() {
 	var err error
 	client := rdl.NewClient(URL, tr)
 
-	out, err := client.GetGlobalIPResponse()
+	out, err := client.GetGlobalIP()
 	if err != nil {
 		log.Fatalf("Unable to retrieve response details, err: %v", err)
 	}

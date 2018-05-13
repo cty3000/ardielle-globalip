@@ -1,6 +1,6 @@
 include "GlobalIP.tdl";
 
-resource GlobalIPResponse GET "/ip" {
+resource GlobalIPResponse GET "/ip" (name=GetGlobalIP) {
     expected OK;
     exceptions {
         ResourceError BAD_REQUEST;
